@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-01-15 Thu 12:43 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>用氛围编程来开发 Emacs 包：成也萧何，败也萧何</title>
+<meta name="author" content="Chang Xiaoduan" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-c:before { content: 'C'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'JavaScript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">用氛围编程来开发 Emacs 包：成也萧何，败也萧何</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org3b20f6f">1. 摘要</a></li>
+<li><a href="#orge56cc5d">2. 背景</a></li>
+<li><a href="#org8b3670b">3. 动机</a></li>
+<li><a href="#org7e77db6">4. 游戏规则</a></li>
+<li><a href="#org7eaf756">5. 惊喜</a></li>
+<li><a href="#org5f100cc">6. 挫败</a>
+<ul>
+<li><a href="#org755ab26">6.1. LLM 有极限</a></li>
+<li><a href="#orgfe40309">6.2. 缺乏控制</a></li>
+<li><a href="#orgf3736d0">6.3. 缺乏成长</a></li>
+</ul>
+</li>
+<li><a href="#orge9e4634">7. 思考</a>
+<ul>
+<li><a href="#org0a63a19">7.1. 它可能解决你的问题</a></li>
+<li><a href="#org50f58f8">7.2. 它还是需要人工干预</a></li>
+<li><a href="#orgb5d62a1">7.3. 为趣味和成长而编程</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+This is a Chinese translation for the note <a href="20250909154355.html#ID-1037d83e-7723-4863-87fb-29155a4de69c">My First Vibe Coding
+Experience</a>.
+</p>
+
+<p>
+用氛围编程来开发 Emacs 包以及由此产生的一些想法。
+</p>
+<div id="outline-container-org3b20f6f" class="outline-2">
+<h2 id="org3b20f6f"><span class="section-number-2">1.</span> 摘要</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+氛围编程也许可以在以下3个场景解决你的问题：
+</p>
+
+<ol class="org-ol">
+<li>你没有编程背景，但想要开发程序来解决你的个性化问题。</li>
+<li>你有编程背景但是想要尝试不熟悉的领域。</li>
+<li>你在尝试开发一些小规模或用后即扔的程序。</li>
+</ol>
+
+
+<p>
+但是，它也可能在问题出现时把情况变得更糟。另外，如果你希望通过编程来学习，氛围编程并不能帮你。LLM 目前仍应该用来引导或加速我们完成工作，而不能彻底代替我们。
+</p>
+</div>
+</div>
+<div id="outline-container-orge56cc5d" class="outline-2">
+<h2 id="orge56cc5d"><span class="section-number-2">2.</span> 背景</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+在 ChatGPT 第一次发布时，我怀疑它是否能用在编程上完成什么真正有价值的事。当时 LLM 不擅长逻辑推理和数学。它们能处理的上下文也很有限，使得它们不适合任何需要同时处理大量信息的任务。还有不得不提的幻觉，我现在还记得当我发现 ChatGPT 给我推荐的一本书实际上根本不存在时的失望。
+</p>
+
+<p>
+自那以后，时光飞逝，那些问题现在已经得到了极大的改善。越来越多的人开始在产品级的编程中使用 LLM（Claude, GitHub Copilot等）。虽然如此，我依然没有在我的日常工作中使用 LLM，直到最近。
+</p>
+</div>
+</div>
+<div id="outline-container-org8b3670b" class="outline-2">
+<h2 id="org8b3670b"><span class="section-number-2">3.</span> 动机</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+我使用 Emacs 和 <a href="https://www.orgroam.com/">org-roam</a> 来实现我的个人笔记系统，或者叫 <a href="https://zettelkasten.de/overview/">Zettelkasten</a>。很多 Emacs 包可以用来实现类似的目的，例如 <a href="https://protesilaos.com/emacs/denote">denote</a> 和 <a href="https://kaorahi.github.io/howm/">howm</a>。我都尝试过它们，并最终决定长期使用 org-roam。但是，howm 有而 org-roam 没有的一个功能我很喜欢：在笔记中搜索一个关键字并能够预览所有匹配的结果以了解其上下文及所在的笔记。
+</p>
+
+<p>
+这看起来正是 <code>grep</code> 的工作，并且 <code>consult-grep</code> 应该能够完美实现我的需求。但是，我用唯一标识符而不是笔记的标题来命名我的 org-roam 笔记，例如 <code>20250910180700.org</code> 。这是因为笔记的标题可能包含一些文件系统不支持的字符，这也帮我省了修改笔记标题时还需要重命名文件的麻烦。 org-roam 的数据库确实有它的缺点，但是相比于 denote 使用文件名来反映元数据的方案，我更喜欢这层额外的间接。
+</p>
+
+<blockquote>
+<p>
+除了太多间接层的问题外，计算机科学中的所有问题都可以通过增加一层间接层来解决
+</p>
+</blockquote>
+
+<p>
+<code>grep</code> 和 <code>consult-grep</code> 是我想到的第一个方案，但是由于它只能显示匹配的文件名，在我的使用环境下是无意义的时间日期字符串，我并不能知道哪个笔记包含这个关键词。
+</p>
+
+<p>
+Emacs 的一个好处就是你（几乎）总是可以自己动手解决你遇到的所有问题，只要你有足够的能力。不幸的是，我并不具备这种能力。虽然我通过阅读 SICP 学了一点 Lisp，但是我从来没有写过任何包级别的 Emacs Lisp 代码。我读了 <code>ripgrep</code> 的文档，然后明白了实现类似的功能需要大量的专注时间。这不是我能利用等待编译器的工作间歇能完成的事。
+</p>
+
+<p>
+等一下，为什么不试试LLM呢？我最近常读到氛围编程或者非程序员利用 LLM 开发应用程序。最近，我也大量使用 ChatGPT，这让我对它的信心增加到愿意尝试使用它来进行编程。
+</p>
+</div>
+</div>
+<div id="outline-container-org7e77db6" class="outline-2">
+<h2 id="org7e77db6"><span class="section-number-2">4.</span> 游戏规则</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+我遵照维基百科中对氛围编程的定义：
+</p>
+
+<blockquote>
+<p>
+LLM 基于开发者提供的工程或任务描述生成代码。开发者不查看或编辑代码，只使用工具或运行结果来评估代码，并向 LLM 提出改进需求。
+</p>
+</blockquote>
+
+<p>
+因此，在开发过程中，我不会写、编辑、或查看一行代码，而是只使用自然语言来描述我的目标，汇报错误，并根据程序的运行结果来向 LLM 反馈。
+</p>
+
+<p>
+我使用的 LLM 是 ChatGPT 5。
+</p>
+</div>
+</div>
+<div id="outline-container-org7eaf756" class="outline-2">
+<h2 id="org7eaf756"><span class="section-number-2">5.</span> 惊喜</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+最初，我震惊于 ChatGPT 能正确理解我的描述并实现功能。虽然它在一些小细节上犯了错误，但是在我报告了错误或表现后，它能迅速地找到问题的原因，并给出修正问题的补丁。
+</p>
+
+<p>
+在两个小时以内，它从零实现了以下的功能：
+</p>
+
+<ol class="org-ol">
+<li>使用 <code>grep</code> 或 <code>ripgrep</code> 在一个指定的目录下递归地搜索一个关键字，并在一个专门的窗口中显示结果。</li>
+<li>当在这个窗口中的匹配结果间移动光标时，打开另一个预览窗口，显示匹配关键字的那一行的上下文，并高亮关键字和其所在的行。</li>
+<li>将匹配结果按文件分组，并将每一组将用该文件中的 <code>#+title</code> 关键字的值来命名，如果该文件是一个 <code>.org</code> 文件并且包含该关键字的话；否则，将实际的文件名作为备选项来使用。</li>
+</ol>
+
+
+<p>
+我严格遵守游戏规则，没有写、修改或读任何一行代码。事实上，由于对 Emacs Lisp 和 Emacs 开发不熟悉，我也几乎没办法做出任何有用的改善。此时，我已有一个可用的、满足我最初需求的包。我对它很满意并把它上传到了 GitHub 的一个<a href="https://github.com/drcxd/org-insight/tree/master">仓库</a>中。
+</p>
+</div>
+</div>
+<div id="outline-container-org5f100cc" class="outline-2">
+<h2 id="org5f100cc"><span class="section-number-2">6.</span> 挫败</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+接下来，我的野心膨胀起来。我想添加更多的功能：
+</p>
+
+<ol class="org-ol">
+<li>支持使用逻辑与/或组合的多个关键字搜索。</li>
+<li>在输入关键字时可以实时预览搜索结果。</li>
+<li>与 <a href="https://github.com/minad/vertico">vertico</a> 进行整合。</li>
+</ol>
+
+
+<p>
+不幸的是，实现这些功能比之前的要更困难一些。我遇到了三个挫败感的主要来源。
+</p>
+</div>
+<div id="outline-container-org755ab26" class="outline-3">
+<h3 id="org755ab26"><span class="section-number-3">6.1.</span> LLM 有极限</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+第一个来源显而示易见：LLM 并不能完成我提出的所有需求，而且某些时候它不能修正自己犯下的错误。项目也就只能永远停滞不前。
+</p>
+
+<p>
+当程序变得越来越复杂，让 LLM 生成整个包的代码会导致越来越多的语法错误，在 Emacs Lisp 中这体现为不匹配的括号。如果不去检查代码，这种错误是无法被修正的。向 ChatGPT 回报这种语法错误并不能帮它修正它们，它可能再次生成的同样错误的代码并声称它是正确的。幸运的是，我略懂一点 Lisp 的语法，可以手动修正这些错误。但对于完全不懂编程的人，这种问题一旦出现就无法被解决了。
+</p>
+
+<p>
+前两个额外的功能在大约5个小时的反复迭代与挣扎中被修正。绝大多数时间我只是在向 ChatGPT 重复同样的问题直到它终于给出一个正确的实现。第三个功能一直没能达到完美：虽然程序的行为是正确的，但是性能很差。我让 ChatGPT 通过使用计时器或异步进程来解决性能问题，但是它不能在不破坏已有功能的前提下做到这件事。在大概努力了两天之后，我放弃了并承认 LLM 并不能解决每一个问题，即使这个问题确定有解。
+</p>
+</div>
+</div>
+<div id="outline-container-orgfe40309" class="outline-3">
+<h3 id="orgfe40309"><span class="section-number-3">6.2.</span> 缺乏控制</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+这些 LLM 不能解决的问题导致了第二个挫折的来源：我也没办法解决这些问题。
+</p>
+
+<p>
+在一切正常时，氛围编程很好：你只需要提出需求或修改，LLM 负责生成可用的代码。但是，一旦出现了问题，不得不由人来检查一切并找出错误的原因。我是不是错误地拷贝了代码？还是代码本身有问题？我和 LLM 当下对问题的视角是否一致？在氛围编程的规则下我不能检查代码来回答这些问题。即使我违背规则，在一个 LLM 生成的代码库上进行修改可能要比我从零实现这些功能更加困难。便利是有代价的。
+</p>
+
+<p>
+我能做的只有向 LLM 报告“某些功能出问题了”，并希望它下一次能够修正这些问题。这感觉好像站在一个老虎机旁，希望下一次自己会赢。由于我不了解机器的构造，在这种情况下指 LLM 和它生成的程序，我只能指望自己足够幸运。编程之所以吸引我是因为程序员对程序拥有（几乎）绝对的控制，而氛围编程把这种控制消除了。
+</p>
+</div>
+</div>
+<div id="outline-container-orgf3736d0" class="outline-3">
+<h3 id="orgf3736d0"><span class="section-number-3">6.3.</span> 缺乏成长</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+第三个，也是最后一个挫败感的来源，是缺乏成长。
+</p>
+
+<p>
+在我放弃把第三个新增功能打磨到完美状态并停止开发后。相比于开始氛围编程之前的那个我，我没有得到任何成长。氛围编程的确产出了有用的成果，但是我并没有学到任何东西。我还是那个对 Emacs 包开发几乎没有任何了解的人，而如果我阅读 LLM 生成的代码，我本可以学到一些东西。如果你不是个程序员，或者不在乎学习编程，或者只是在开发一个简单、用完就扔的脚本程序，这可能并不是一个问题。但是，对于任何在乎成长并且想要开发长期使用的软件的人来说，这是一个不可忽视的因素。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orge9e4634" class="outline-2">
+<h2 id="orge9e4634"><span class="section-number-2">7.</span> 思考</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+在尝试过氛围编程后，我有了一些想法。
+</p>
+</div>
+<div id="outline-container-org0a63a19" class="outline-3">
+<h3 id="org0a63a19"><span class="section-number-3">7.1.</span> 它可能解决你的问题</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+让 LLM 来实现你的想法并根据运行结果来迭代是件很美妙的事。如果 LLM 能够解决你的问题，那就用它来解决问题。如果你不是一名程序员，但是在尝试开发软件来解决个性化的问题，一定要试一下它。或者，如果你是一名想要尝试不熟悉领域的程序员，或者在开发小规模或用后即扔的程序，它也许适合你。
+</p>
+</div>
+</div>
+<div id="outline-container-org50f58f8" class="outline-3">
+<h3 id="org50f58f8"><span class="section-number-3">7.2.</span> 它还是需要人工干预</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+但是，一旦出现问题，你将很难进行修正。不知道具体的实现，你不知道如何解决一个 LLM 无法解决的问题。解决这些问题可能还是需要人类专家，而他们可能还是需要从头开始，因为 LLM 生成的代码可能难以阅读，编辑和维护。这也是我对 AI 抱持怀疑态度的一个重要原因。哪个更费时间：是解决一个问题？还是验证一个问题的解是否正确？这在我看来就像是著名的 P v.s. NP 问题。
+</p>
+</div>
+</div>
+<div id="outline-container-orgb5d62a1" class="outline-3">
+<h3 id="orgb5d62a1"><span class="section-number-3">7.3.</span> 为趣味和成长而编程</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+即使某一天 LLM 成为了全知全能的，氛围编程也消解了我们亲自解决问题的乐趣。就好像围棋和象棋，即使现在 AI 能够打败最顶尖的人类棋手，人们依然在下围棋和象棋，为了这项活动本身的乐趣。（这也是我们发展 AI 的一个原因，把我们从重复性的劳动中解放出来，让我们可以仅出于乐趣的目的来决定我们要做的事。）
+</p>
+
+<p>
+另外，虽然氛围编程给我提供了一个可用的软件包，能够解决我的问题，在这个开发过程中我并没有得到任何成长。我没有学到任何东西。这让我认为 LLM 辅助编程比纯粹的氛围编程的更有价值。LLM 可以帮助新手和进入一个全新领域的程序员迅速开始上手编写代码。我们不再需要先学习所有的基础知识：编程是一项在实践中学习得更快的技艺。LLM 辅助编程是一个迎合我们个性化需求的好老师。（但你还是要对这位老师给出的答案或建议保持谨慎！）
+</p>
+
+<p>
+最后，我打算重写这个软件包。这次，我不再让 LLM 来完成所有的编码工作。我可以向它询问程序的架构，或某个特定任务的实现方法，但是所有的代码必须由我来编写，或者至少是经过检查，我从而了解它如何工作，或许也可以学到一些新知识。
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Chang Xiaoduan</p>
+<p class="date">Created: 2026-01-15 Thu 12:43</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
