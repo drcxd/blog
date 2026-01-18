@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-01-17 Sat 15:47 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>在Emacs内使用五笔输入法</title>
+<meta name="author" content="Chang Xiaoduan" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-c:before { content: 'C'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'JavaScript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">在Emacs内使用五笔输入法</h1>
+<p>
+由于工作的开发环境是Windows，我不得不在Windows电脑上使用Emacs。然而Emacs对Windows的支持并不完美，所以我在Windows Subsystem for Linux （WSL）里装了一个Arch Linux来完成一切不必在Windows里做的事情，其中就包括笔记。问题是，WSL现在并不支持直接使用宿主Windows的输入法，所以我没办法在WSL的Emacs里输入中文。虽然我可以在Windows里输入中文后再把它拷贝进WSL，但是……我相信我们可以做得比这更好一点。这让我回想起，我不是第一次尝试在WSL里使用Emacs，之前也是因为这个问题不好解决，所以作罢了。但是，Windows上的Emacs体验实在不够好，于是我打算再次尝试解决这个问题。
+</p>
+
+<p>
+事实上Emacs自带输入法支持，包含不少中文输入方案，最常用的拼音就在其中，还有很多输入法甚至是我完全没听过的：首尾、四角号码、倚天注音、零一注音、仓颉……遗憾的是，并没有内置的五笔输入法，而自带的拼音输入法的使用体验又和现代的智能拼音输入法相差太多。于是打开搜索引擎<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>，果然，早已有人制作了更好用的中文输入法插件——<a href="https://github.com/tumashu/pyim">pyim</a>。最初，它只支持全拼输入，但是逐渐加入了双拼、五笔、仓颉，甚至还可以作为<a href="https://rime.im/">Rime</a>的前端。我快速查看了它对五笔输入法的支持，并且惊喜地发现它支持98五笔输入法<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>。
+</p>
+
+<p>
+只需要几行简单的配置代码就可以使用pyim：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><code>(<span style="color: #531ab6;">use-package</span> pyim <span style="color: #8f0075;">:ensure</span> t
+  <span style="color: #8f0075;">:config</span>
+  (<span style="color: #531ab6;">setq</span> default-input-method <span style="color: #3548cf;">"pyim"</span>))
+(<span style="color: #531ab6;">use-package</span> pyim-wbdict <span style="color: #8f0075;">:ensure</span> t
+  <span style="color: #8f0075;">:config</span>
+  (<span style="color: #531ab6;">setq</span> pyim-default-scheme 'wubi)
+  (pyim-wbdict-v98-enable))
+</code></pre>
+</div>
+
+<p>
+试用的结果很让我意外：体验非常流畅，和我在Windows中使用的基于Rime的小狼毫输入法的体验几乎完全相同。一开始我还担心会不会有选字、词的优先级不同的问题，但是也许两边使用的是同一个码表，所以我几乎感觉不到任何差异<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>。我对这个结果非常满意。
+</p>
+
+<p>
+在项目的提交历史上可以看到近两年来的提交几乎都是由作者tumashu贡献的，感谢他和所有其他维护者和参与者。
+</p>
+
+<p>
+除了自带的98五笔输入法之外，pyim还可以作为Rime的前端使用。我在除WSL之外的其它平台（Windows，Linux，Android）使用的都是基于Rime的输入法，但是我却从来没有深入研究过它。要配置pyim和Rime一同工作，可能需要先了解一下它。暂且把这作为一个未来可能的工程吧，pyim内置的五笔输入法已经可以满足我绝大多数场景下的使用了。
+</p>
+
+<p>
+更新：使用了pyim几天之后，我发现它比操作系统中的输入法更好的地方在于它和Emacs结合地更加紧密。当需要输入快捷键的时候，如果启用的是操作系统的输入法，那么它会捕获我输入的快捷键并试图将它们转化为中文。此时只能先暂时禁用操作系统的输入法，完成不需要输入法的操作后，再重新启用它。而如果使用的是Emacs内置的输入法，那么它会知道何时不需要自己工作，从而不需要反复禁用启用它。不过，在使用模态编辑时，它还是会在非输入模式下阻止对应的快捷键正常工作。不过，相比于操作系统内置的输入法会拦截一切的行为，它已经足够好了。在发现这一点后，我想在Emacs内我不会再使用操作系统自带的输入法了。
+</p>
+
+<p>
+再次更新：通过自定义 <code>pyim-english-input-switch-functions</code> 实现了只在模态编辑的插入模式下启用pyim的效果。这就是使用Emacs最大的好处，一些微小的特性可以自己动手实现。
+</p>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+还是对所有事都 “问问ChatGPT”有些抗拒。
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+如果不支持的话我只能退回拼音输入法了。作为一个98五笔的使用者，无数次我看到很多声称支持五笔的输入法只支持86五笔，而且不能让用户导入自定义的编码方案时，不得不感到无奈。做一个少数派是要付出代价的。
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+之前使用其它的98五笔输入法的时候，遇到过选字、词的体验略有不同的情况，这就使得在一个输入方案下锻炼的肌肉记忆无用武之地了。
+</p></div></div>
+
+
+</div>
+</div></div>
+</body>
+</html>

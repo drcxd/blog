@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-01-15 Thu 12:43 -->
+<!-- 2026-01-17 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>用氛围编程来开发 Emacs 包：成也萧何，败也萧何</title>
@@ -202,38 +202,38 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3b20f6f">1. 摘要</a></li>
-<li><a href="#orge56cc5d">2. 背景</a></li>
-<li><a href="#org8b3670b">3. 动机</a></li>
-<li><a href="#org7e77db6">4. 游戏规则</a></li>
-<li><a href="#org7eaf756">5. 惊喜</a></li>
-<li><a href="#org5f100cc">6. 挫败</a>
+<li><a href="#org1245ba4">1. 摘要</a></li>
+<li><a href="#org3f98691">2. 背景</a></li>
+<li><a href="#org1228938">3. 动机</a></li>
+<li><a href="#org6f454f2">4. 游戏规则</a></li>
+<li><a href="#org545f118">5. 惊喜</a></li>
+<li><a href="#org6aa8fd1">6. 挫败</a>
 <ul>
-<li><a href="#org755ab26">6.1. LLM 有极限</a></li>
-<li><a href="#orgfe40309">6.2. 缺乏控制</a></li>
-<li><a href="#orgf3736d0">6.3. 缺乏成长</a></li>
+<li><a href="#org3341141">6.1. LLM 有极限</a></li>
+<li><a href="#orgaede972">6.2. 缺乏控制</a></li>
+<li><a href="#org3e31704">6.3. 缺乏成长</a></li>
 </ul>
 </li>
-<li><a href="#orge9e4634">7. 思考</a>
+<li><a href="#orgd6a8738">7. 思考</a>
 <ul>
-<li><a href="#org0a63a19">7.1. 它可能解决你的问题</a></li>
-<li><a href="#org50f58f8">7.2. 它还是需要人工干预</a></li>
-<li><a href="#orgb5d62a1">7.3. 为趣味和成长而编程</a></li>
+<li><a href="#org1cc74e6">7.1. 它可能解决你的问题</a></li>
+<li><a href="#org4d91c4b">7.2. 它还是需要人工干预</a></li>
+<li><a href="#org96b1e28">7.3. 为趣味和成长而编程</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <p>
-This is a Chinese translation for the note <a href="20250909154355.html#ID-1037d83e-7723-4863-87fb-29155a4de69c">My First Vibe Coding
+This is a Chinese translation for the note <a href="org-roam/20250909154355.html#ID-1037d83e-7723-4863-87fb-29155a4de69c">My First Vibe Coding
 Experience</a>.
 </p>
 
 <p>
 用氛围编程来开发 Emacs 包以及由此产生的一些想法。
 </p>
-<div id="outline-container-org3b20f6f" class="outline-2">
-<h2 id="org3b20f6f"><span class="section-number-2">1.</span> 摘要</h2>
+<div id="outline-container-org1245ba4" class="outline-2">
+<h2 id="org1245ba4"><span class="section-number-2">1.</span> 摘要</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 氛围编程也许可以在以下3个场景解决你的问题：
@@ -251,8 +251,8 @@ Experience</a>.
 </p>
 </div>
 </div>
-<div id="outline-container-orge56cc5d" class="outline-2">
-<h2 id="orge56cc5d"><span class="section-number-2">2.</span> 背景</h2>
+<div id="outline-container-org3f98691" class="outline-2">
+<h2 id="org3f98691"><span class="section-number-2">2.</span> 背景</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 在 ChatGPT 第一次发布时，我怀疑它是否能用在编程上完成什么真正有价值的事。当时 LLM 不擅长逻辑推理和数学。它们能处理的上下文也很有限，使得它们不适合任何需要同时处理大量信息的任务。还有不得不提的幻觉，我现在还记得当我发现 ChatGPT 给我推荐的一本书实际上根本不存在时的失望。
@@ -263,8 +263,8 @@ Experience</a>.
 </p>
 </div>
 </div>
-<div id="outline-container-org8b3670b" class="outline-2">
-<h2 id="org8b3670b"><span class="section-number-2">3.</span> 动机</h2>
+<div id="outline-container-org1228938" class="outline-2">
+<h2 id="org1228938"><span class="section-number-2">3.</span> 动机</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 我使用 Emacs 和 <a href="https://www.orgroam.com/">org-roam</a> 来实现我的个人笔记系统，或者叫 <a href="https://zettelkasten.de/overview/">Zettelkasten</a>。很多 Emacs 包可以用来实现类似的目的，例如 <a href="https://protesilaos.com/emacs/denote">denote</a> 和 <a href="https://kaorahi.github.io/howm/">howm</a>。我都尝试过它们，并最终决定长期使用 org-roam。但是，howm 有而 org-roam 没有的一个功能我很喜欢：在笔记中搜索一个关键字并能够预览所有匹配的结果以了解其上下文及所在的笔记。
@@ -293,8 +293,8 @@ Emacs 的一个好处就是你（几乎）总是可以自己动手解决你遇�
 </p>
 </div>
 </div>
-<div id="outline-container-org7e77db6" class="outline-2">
-<h2 id="org7e77db6"><span class="section-number-2">4.</span> 游戏规则</h2>
+<div id="outline-container-org6f454f2" class="outline-2">
+<h2 id="org6f454f2"><span class="section-number-2">4.</span> 游戏规则</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 我遵照维基百科中对氛围编程的定义：
@@ -315,8 +315,8 @@ LLM 基于开发者提供的工程或任务描述生成代码。开发者不查�
 </p>
 </div>
 </div>
-<div id="outline-container-org7eaf756" class="outline-2">
-<h2 id="org7eaf756"><span class="section-number-2">5.</span> 惊喜</h2>
+<div id="outline-container-org545f118" class="outline-2">
+<h2 id="org545f118"><span class="section-number-2">5.</span> 惊喜</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 最初，我震惊于 ChatGPT 能正确理解我的描述并实现功能。虽然它在一些小细节上犯了错误，但是在我报告了错误或表现后，它能迅速地找到问题的原因，并给出修正问题的补丁。
@@ -338,8 +338,8 @@ LLM 基于开发者提供的工程或任务描述生成代码。开发者不查�
 </p>
 </div>
 </div>
-<div id="outline-container-org5f100cc" class="outline-2">
-<h2 id="org5f100cc"><span class="section-number-2">6.</span> 挫败</h2>
+<div id="outline-container-org6aa8fd1" class="outline-2">
+<h2 id="org6aa8fd1"><span class="section-number-2">6.</span> 挫败</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 接下来，我的野心膨胀起来。我想添加更多的功能：
@@ -356,8 +356,8 @@ LLM 基于开发者提供的工程或任务描述生成代码。开发者不查�
 不幸的是，实现这些功能比之前的要更困难一些。我遇到了三个挫败感的主要来源。
 </p>
 </div>
-<div id="outline-container-org755ab26" class="outline-3">
-<h3 id="org755ab26"><span class="section-number-3">6.1.</span> LLM 有极限</h3>
+<div id="outline-container-org3341141" class="outline-3">
+<h3 id="org3341141"><span class="section-number-3">6.1.</span> LLM 有极限</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
 第一个来源显而示易见：LLM 并不能完成我提出的所有需求，而且某些时候它不能修正自己犯下的错误。项目也就只能永远停滞不前。
@@ -372,8 +372,8 @@ LLM 基于开发者提供的工程或任务描述生成代码。开发者不查�
 </p>
 </div>
 </div>
-<div id="outline-container-orgfe40309" class="outline-3">
-<h3 id="orgfe40309"><span class="section-number-3">6.2.</span> 缺乏控制</h3>
+<div id="outline-container-orgaede972" class="outline-3">
+<h3 id="orgaede972"><span class="section-number-3">6.2.</span> 缺乏控制</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 这些 LLM 不能解决的问题导致了第二个挫折的来源：我也没办法解决这些问题。
@@ -388,8 +388,8 @@ LLM 基于开发者提供的工程或任务描述生成代码。开发者不查�
 </p>
 </div>
 </div>
-<div id="outline-container-orgf3736d0" class="outline-3">
-<h3 id="orgf3736d0"><span class="section-number-3">6.3.</span> 缺乏成长</h3>
+<div id="outline-container-org3e31704" class="outline-3">
+<h3 id="org3e31704"><span class="section-number-3">6.3.</span> 缺乏成长</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 第三个，也是最后一个挫败感的来源，是缺乏成长。
@@ -401,31 +401,31 @@ LLM 基于开发者提供的工程或任务描述生成代码。开发者不查�
 </div>
 </div>
 </div>
-<div id="outline-container-orge9e4634" class="outline-2">
-<h2 id="orge9e4634"><span class="section-number-2">7.</span> 思考</h2>
+<div id="outline-container-orgd6a8738" class="outline-2">
+<h2 id="orgd6a8738"><span class="section-number-2">7.</span> 思考</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 在尝试过氛围编程后，我有了一些想法。
 </p>
 </div>
-<div id="outline-container-org0a63a19" class="outline-3">
-<h3 id="org0a63a19"><span class="section-number-3">7.1.</span> 它可能解决你的问题</h3>
+<div id="outline-container-org1cc74e6" class="outline-3">
+<h3 id="org1cc74e6"><span class="section-number-3">7.1.</span> 它可能解决你的问题</h3>
 <div class="outline-text-3" id="text-7-1">
 <p>
 让 LLM 来实现你的想法并根据运行结果来迭代是件很美妙的事。如果 LLM 能够解决你的问题，那就用它来解决问题。如果你不是一名程序员，但是在尝试开发软件来解决个性化的问题，一定要试一下它。或者，如果你是一名想要尝试不熟悉领域的程序员，或者在开发小规模或用后即扔的程序，它也许适合你。
 </p>
 </div>
 </div>
-<div id="outline-container-org50f58f8" class="outline-3">
-<h3 id="org50f58f8"><span class="section-number-3">7.2.</span> 它还是需要人工干预</h3>
+<div id="outline-container-org4d91c4b" class="outline-3">
+<h3 id="org4d91c4b"><span class="section-number-3">7.2.</span> 它还是需要人工干预</h3>
 <div class="outline-text-3" id="text-7-2">
 <p>
 但是，一旦出现问题，你将很难进行修正。不知道具体的实现，你不知道如何解决一个 LLM 无法解决的问题。解决这些问题可能还是需要人类专家，而他们可能还是需要从头开始，因为 LLM 生成的代码可能难以阅读，编辑和维护。这也是我对 AI 抱持怀疑态度的一个重要原因。哪个更费时间：是解决一个问题？还是验证一个问题的解是否正确？这在我看来就像是著名的 P v.s. NP 问题。
 </p>
 </div>
 </div>
-<div id="outline-container-orgb5d62a1" class="outline-3">
-<h3 id="orgb5d62a1"><span class="section-number-3">7.3.</span> 为趣味和成长而编程</h3>
+<div id="outline-container-org96b1e28" class="outline-3">
+<h3 id="org96b1e28"><span class="section-number-3">7.3.</span> 为趣味和成长而编程</h3>
 <div class="outline-text-3" id="text-7-3">
 <p>
 即使某一天 LLM 成为了全知全能的，氛围编程也消解了我们亲自解决问题的乐趣。就好像围棋和象棋，即使现在 AI 能够打败最顶尖的人类棋手，人们依然在下围棋和象棋，为了这项活动本身的乐趣。（这也是我们发展 AI 的一个原因，把我们从重复性的劳动中解放出来，让我们可以仅出于乐趣的目的来决定我们要做的事。）
@@ -441,11 +441,6 @@ LLM 基于开发者提供的工程或任务描述生成代码。开发者不查�
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Chang Xiaoduan</p>
-<p class="date">Created: 2026-01-15 Thu 12:43</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

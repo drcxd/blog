@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-01-15 Thu 12:43 -->
+<!-- 2026-01-17 Sat 15:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Vibe Coding an Emacs Package: Where It Succeeds and Where It Falls Short</title>
@@ -202,23 +202,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3d681f1">1. Abstract</a></li>
-<li><a href="#org2c9d0c5">2. Background</a></li>
-<li><a href="#org046d10a">3. Motivation</a></li>
-<li><a href="#org18e2e78">4. Game Rules</a></li>
-<li><a href="#org52d72ad">5. The Amazement</a></li>
-<li><a href="#org9b19cb6">6. The Frustration</a>
+<li><a href="#org9cf5f64">1. Abstract</a></li>
+<li><a href="#org1abfe32">2. Background</a></li>
+<li><a href="#orgf8941d8">3. Motivation</a></li>
+<li><a href="#org2d63cfa">4. Game Rules</a></li>
+<li><a href="#orge23be98">5. The Amazement</a></li>
+<li><a href="#org0868103">6. The Frustration</a>
 <ul>
-<li><a href="#orgbab2957">6.1. LLMs' Limits</a></li>
-<li><a href="#org280431d">6.2. Lack of Control</a></li>
-<li><a href="#org646cce9">6.3. Lack of Growth</a></li>
+<li><a href="#orgb8ac053">6.1. LLMs' Limits</a></li>
+<li><a href="#org85ffef1">6.2. Lack of Control</a></li>
+<li><a href="#org9f64ac9">6.3. Lack of Growth</a></li>
 </ul>
 </li>
-<li><a href="#org052ee50">7. Reflection</a>
+<li><a href="#orge93d1c1">7. Reflection</a>
 <ul>
-<li><a href="#org753baa1">7.1. It May Solve Your Problem</a></li>
-<li><a href="#orgf994a94">7.2. It Still Requires Human Intervention</a></li>
-<li><a href="#org8c24823">7.3. Programming for Growth and Fun</a></li>
+<li><a href="#org1773632">7.1. It May Solve Your Problem</a></li>
+<li><a href="#orgf183d46">7.2. It Still Requires Human Intervention</a></li>
+<li><a href="#org02b628e">7.3. Programming for Growth and Fun</a></li>
 </ul>
 </li>
 </ul>
@@ -228,8 +228,8 @@
 Vibe coding an Emacs package to solve my personalized problem, and
 reflections for it.
 </p>
-<div id="outline-container-org3d681f1" class="outline-2">
-<h2 id="org3d681f1"><span class="section-number-2">1.</span> Abstract</h2>
+<div id="outline-container-org9cf5f64" class="outline-2">
+<h2 id="org9cf5f64"><span class="section-number-2">1.</span> Abstract</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Vibe coding may solve your problem in the following three scenarios:
@@ -251,8 +251,8 @@ accelerator, not as a replacement.
 </p>
 </div>
 </div>
-<div id="outline-container-org2c9d0c5" class="outline-2">
-<h2 id="org2c9d0c5"><span class="section-number-2">2.</span> Background</h2>
+<div id="outline-container-org1abfe32" class="outline-2">
+<h2 id="org1abfe32"><span class="section-number-2">2.</span> Background</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 When ChatGPT first launched, I was skeptical about its usefulness for
@@ -271,8 +271,8 @@ in my day-to-day work &ndash; until recently.
 </p>
 </div>
 </div>
-<div id="outline-container-org046d10a" class="outline-2">
-<h2 id="org046d10a"><span class="section-number-2">3.</span> Motivation</h2>
+<div id="outline-container-orgf8941d8" class="outline-2">
+<h2 id="orgf8941d8"><span class="section-number-2">3.</span> Motivation</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 I use Emacs and <a href="https://www.orgroam.com/">org-roam</a> to implement my personal notes system &ndash; my
@@ -323,8 +323,8 @@ I wanted to try programming with it.
 </p>
 </div>
 </div>
-<div id="outline-container-org18e2e78" class="outline-2">
-<h2 id="org18e2e78"><span class="section-number-2">4.</span> Game Rules</h2>
+<div id="outline-container-org2d63cfa" class="outline-2">
+<h2 id="org2d63cfa"><span class="section-number-2">4.</span> Game Rules</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 I followed the Wikipedia definition of vibe coding:
@@ -350,8 +350,8 @@ The LLM used was ChatGPT 5.
 </p>
 </div>
 </div>
-<div id="outline-container-org52d72ad" class="outline-2">
-<h2 id="org52d72ad"><span class="section-number-2">5.</span> The Amazement</h2>
+<div id="outline-container-orge23be98" class="outline-2">
+<h2 id="orge23be98"><span class="section-number-2">5.</span> The Amazement</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 At first, ChatGPT surprised me by understanding my description and
@@ -385,8 +385,8 @@ was practically useful. I was so satisfied that I created a GitHub
 </p>
 </div>
 </div>
-<div id="outline-container-org9b19cb6" class="outline-2">
-<h2 id="org9b19cb6"><span class="section-number-2">6.</span> The Frustration</h2>
+<div id="outline-container-org0868103" class="outline-2">
+<h2 id="org0868103"><span class="section-number-2">6.</span> The Frustration</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Then, I got ambitious and tried to push farther. I wanted to add:
@@ -404,8 +404,8 @@ Unfortunately, implementing these features proved more difficult than
 the first set. I ran into three main sources of frustration.
 </p>
 </div>
-<div id="outline-container-orgbab2957" class="outline-3">
-<h3 id="orgbab2957"><span class="section-number-3">6.1.</span> LLMs' Limits</h3>
+<div id="outline-container-orgb8ac053" class="outline-3">
+<h3 id="orgb8ac053"><span class="section-number-3">6.1.</span> LLMs' Limits</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
 The first source of frustration is obvious: LLMs can't achieve
@@ -438,8 +438,8 @@ be solvable.
 </p>
 </div>
 </div>
-<div id="outline-container-org280431d" class="outline-3">
-<h3 id="org280431d"><span class="section-number-3">6.2.</span> Lack of Control</h3>
+<div id="outline-container-org85ffef1" class="outline-3">
+<h3 id="org85ffef1"><span class="section-number-3">6.2.</span> Lack of Control</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 The problems that LLMs can't solve led to the second source of
@@ -468,8 +468,8 @@ eliminates it.
 </p>
 </div>
 </div>
-<div id="outline-container-org646cce9" class="outline-3">
-<h3 id="org646cce9"><span class="section-number-3">6.3.</span> Lack of Growth</h3>
+<div id="outline-container-org9f64ac9" class="outline-3">
+<h3 id="org9f64ac9"><span class="section-number-3">6.3.</span> Lack of Growth</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 The third, and final source of frustration, is the lack of growth.
@@ -490,15 +490,15 @@ build software that serves for a long time, this cannot be ignored.
 </div>
 </div>
 </div>
-<div id="outline-container-org052ee50" class="outline-2">
-<h2 id="org052ee50"><span class="section-number-2">7.</span> Reflection</h2>
+<div id="outline-container-orge93d1c1" class="outline-2">
+<h2 id="orge93d1c1"><span class="section-number-2">7.</span> Reflection</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 Having tried vibe coding, I have several thoughts.
 </p>
 </div>
-<div id="outline-container-org753baa1" class="outline-3">
-<h3 id="org753baa1"><span class="section-number-3">7.1.</span> It May Solve Your Problem</h3>
+<div id="outline-container-org1773632" class="outline-3">
+<h3 id="org1773632"><span class="section-number-3">7.1.</span> It May Solve Your Problem</h3>
 <div class="outline-text-3" id="text-7-1">
 <p>
 It's amazing that you can instruct an LLM to implement ideas and
@@ -511,8 +511,8 @@ disposable program, it may suit your needs.
 </p>
 </div>
 </div>
-<div id="outline-container-orgf994a94" class="outline-3">
-<h3 id="orgf994a94"><span class="section-number-3">7.2.</span> It Still Requires Human Intervention</h3>
+<div id="outline-container-orgf183d46" class="outline-3">
+<h3 id="orgf183d46"><span class="section-number-3">7.2.</span> It Still Requires Human Intervention</h3>
 <div class="outline-text-3" id="text-7-2">
 <p>
 However, once things go wrong, you may have no way to fix
@@ -527,8 +527,8 @@ the P vs NP problem.
 </p>
 </div>
 </div>
-<div id="outline-container-org8c24823" class="outline-3">
-<h3 id="org8c24823"><span class="section-number-3">7.3.</span> Programming for Growth and Fun</h3>
+<div id="outline-container-org02b628e" class="outline-3">
+<h3 id="org02b628e"><span class="section-number-3">7.3.</span> Programming for Growth and Fun</h3>
 <div class="outline-text-3" id="text-7-3">
 <p>
 Even if future LLMs become perfect oracles, vibe coding still deprives
@@ -560,11 +560,6 @@ code so I understand how it works and maybe learn a trick or two.
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Chang Xiaoduan</p>
-<p class="date">Created: 2026-01-15 Thu 12:43</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
