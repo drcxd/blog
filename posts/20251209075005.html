@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-05-05 Tue 09:24 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>从智能拼音输入法到大语言模型</title>
+<meta name="author" content="Chang Xiaoduan" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-c:before { content: 'C'; }
+  pre.src-C:before { content: 'C'; }
+  pre.src-C\+\+:before { content: 'C++'; }
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'JavaScript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">从智能拼音输入法到大语言模型</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgbf7e3e4">1. 具体不同，抽象相同</a></li>
+<li><a href="#org8fab41f">2. 什么是智能？</a></li>
+<li><a href="#org6297868">3. 从WIM和IPIM预测氛围编程的发展</a></li>
+<li><a href="#orga6a986c">4. AI的使用方法</a></li>
+</ul>
+</div>
+</div>
+<p>
+后知后觉，最近才想到智能拼音输入法（以下用IPIM<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>指代）和现在最流行的人工智能形式——大语言模型（以下用LLM指代）——有很多相似的地方。至少，它们都和“智能”有关。IPIM的流行导致的五笔输入法（以下用WIM<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>指代）的衰退是否预示着由LLM衍生的氛围编程将要使传统编程方式衰退呢？无论如何，最后给出一个我个人判断使用AI的方式是否“正确”的原则。
+</p>
+<div id="outline-container-orgbf7e3e4" class="outline-2">
+<h2 id="orgbf7e3e4"><span class="section-number-2">1.</span> 具体不同，抽象相同</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+尽管LLM和IPIM的底层工作方式并不相同，但是抽象地来看，却有相似的地方：
+</p>
+
+<div class="org-center">
+<p>
+基于统计结果对要生成的文本进行预测。
+</p>
+</div>
+
+<p>
+只是，IPIM的尺度相比于LLM太小，并且最终结果需要收敛到尽可能精确的文字上，可以说是微语言模型（Micro Language Model）。量的差异太大，以至于我一直没有看到它们质上的很多相似。
+</p>
+
+<ol class="org-ol">
+<li><p>
+它们都基于数据进行预测。
+</p>
+
+<p>
+LLM和IPIM都依据现有的语料进行训练，都可以通过网络，和用户输入，在训练后补充数据，对生成的结果进行调整。
+</p></li>
+<li><p>
+它们都是非决定性的。
+</p>
+
+<p>
+LLM和IPIM对于使用者来说几乎都是黑盒，甚至LLM的训练者也无法通过训练过程预测给定的输入下LLM会给出什么样的输出。而IPIM在加入联网搜索和按输入频率调整后也难以再预测它的输出结果。
+</p></li>
+<li><p>
+它们都依赖更多的约束来生成更准确的结果。
+</p>
+
+<p>
+<code>CLAUDE.md</code> 或所有其它用于给LLM提供更多背景信息的工具，其实都是在给
+LLM 提供更多的约束，在这些具体约束下，LLM更有可能生成用户期望中的输出。而 IPIM也是如此，单独输入一个字的拼音，它很难正确预测结果，但是如果输入的是一个词，或者一个句子，它预测正确的概率就高得多。
+</p></li>
+<li><p>
+它们都不擅长处理完全新颖的问题。
+</p>
+
+<p>
+由于它们都依赖现有语料数据，显然，可以推出它们不擅长处理全新的问题。如果你的编程任务是基于一套新颖的语法，使用没有公开文档的API，那么
+LLM几乎不能生成什么有用的信息。而IPIM也不擅长预测数据中没有的词。一个常见的例子就是人的名字。名字往往不是现有的词，所以IPIM在输入人名的时候和传统的拼音输入法效率几乎相同。
+</p></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org8fab41f" class="outline-2">
+<h2 id="org8fab41f"><span class="section-number-2">2.</span> 什么是智能？</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+一直有一部分意见坚定地认为LLM展现的特质不能称之为智能，那么究竟什么是智能？
+</p>
+
+<p>
+从“智能拼音输入法”的角度来看，智能就是不经指示，就能猜出用户的意图。在英语中常常用DWIM（Do What I Mean）来指代这个意思。很多软件工具都有一个
+DWIM的选项，它的功能是根据当前的上下文环境，在可能的操作中选择概率最高的一项。那么，至少在智能拼音输入法的智能定义下，这个工具是智能的。
+</p>
+
+<p>
+DWIM，我将它翻译成“按我心意”<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>。我也尝试让ChatGPT来翻译它，我和它的对话过程如下：
+</p>
+
+<pre class="example" id="org5f022af">
+› How do you translate "Do what I mean" to Chinese?
+
+
+• “按我的意思做” or “照我的意思办” are natural translations for “Do what I mean.”
+
+
+› Can you make it more poetic? More literate?
+
+
+• 可译作“契我心意而行”或“体我旨意而为”，比直白的说法更雅致些。
+
+
+› Make it four Chinese characters.
+
+
+• “契我心意”。
+</pre>
+
+<p>
+可以看到，它最初的翻译是完全的直译，当我给出更多的约束条件之后，它开始给出更符合我想法的结果。这再次印证了LLM需要更多的约束条件才能生成更好的结果。值得注意的是，当我增加更多条件的时候，其实也是我本身在接近理想中的最终结果的过程。而LLM在这个过程中，提供了一个我没有想到的内容：“契”。如果不是它，我肯定想不到用这个字，而是想要借用《葫芦兄弟》动画中的典故。
+</p>
+
+<p>
+时至今日，我想我们应该承认LLM具有一定的智能，即使这个智能只是“无限猴子定理”中的猴子。但是，当这个猴子真的通过大量的算力而有了相对无限的时间的时候，它至少在结果上变成了智能的。
+</p>
+</div>
+</div>
+<div id="outline-container-org6297868" class="outline-2">
+<h2 id="org6297868"><span class="section-number-2">3.</span> 从WIM和IPIM预测氛围编程的发展</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+在IPIM出现之前，WIM还相当流行，并且是任何想要显著提高打字速度的人必然考虑学习的。但是随着IPIM出现之后，专业的打字员似乎也逐渐消失了，打字社也逐渐消失，更多人只是使用打印和复印服务。IPIM对拼音输入效率的提高使得投入大量的时间学习和练习WIM换来的极致的输入效率不再划算，WIM也不再主流，只有爱好者才会想要去学习。
+</p>
+
+<p>
+现在主流的编程方式和正在涌现的氛围编程会不会也像WIM和IPIM一样？LLM可以让几乎没有受过编程训练的人也能创造并利用计算机程序。虽然现在LLM在维护复杂项目时的表现还不够理想，但是随着模型的进一步发展完善，这些问题或许可以得到解决。就像IPIM使没有受过专业打字训练的人也能高速准确地输入文本一样，LLM或许可以使没有受过编程训练的人也能利用计算机程序来解决自己在数字生活中遇到的各种问题。虽然受过专业训练的人能够更好地使用LLM来更快更好的完成开发任务——就像现在熟练的WIM使用者依然要比IPIM的使用者打字速度快一样——但是LLM可以把开发计算机程序来解决实际问题的门槛降低到像使用
+IPIM打字输入中文一样低。这并非不可能，或者说，这已经在发生了。
+</p>
+</div>
+</div>
+<div id="outline-container-orga6a986c" class="outline-2">
+<h2 id="orga6a986c"><span class="section-number-2">4.</span> AI的使用方法</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+虽然LLM可以提高软件的开发速度，但是依然有一部分开发者拒绝使用LLM，即使使用它们真的有利无害。对于这些开发者，软件并不是他们的目的，而开发软件的过程才是。他们更加在乎的是思考和解决问题的过程，而不是解决问题后的结果。这些人的态度让我开始思考我们究竟应该使用AI。这里指的不仅是LLM，而是更广泛的AI，包含将来可能会出现的，完全超乎我们现在想像的AI形式。
+</p>
+
+<p>
+概括来说，我理想的原则是：
+</p>
+
+<div class="org-center">
+<p>
+如果使用AI帮助你完成了你知道如何完成的琐事，从而为你节省了时间让你去从事更有意义的或AI无法完成的事情，那么这是正确的。如果使用AI帮你完成的是你在乎但却不知道​<b>如何完成</b>​的事情，那么此时你需要再思索一下你是否应该放过这个学习和练习的机会。
+</p>
+</div>
+
+<p>
+当然，任何规则都有例外，“更有意义”本身就是一个非常主观的表述，而且，一个人不可能了解所有事，所以，这个原则更多是我对自己的要求。
+</p>
+
+<p>
+这有一个更形象的例子。你不会带着一个机器人去健身房，并和那里的人们说：“嘿，看我这个机器人，它的动作更标准，能在更短时间内提起更大的重量。你们不如找个沙发，舒舒服服地躺下来看着它锻炼吧。”是的，虽然AI可以比人更好地完成某些事情，但是在某些情况下，过程比结果更加重要，而且让AI来替我经历这个过程，我不会有任何的成长。用进废退，肌肉和大脑都是这个道理。
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Intelligent Pinyin Input Method
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Wubi Input Method
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+如意如意，按我心意，快快显灵！
+</p></div></div>
+
+
+</div>
+</div></div>
+</body>
+</html>

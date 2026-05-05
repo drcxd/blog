@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-05-05 Tue 09:25 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Modding a Fallout: New Vegas Mod</title>
+<meta name="author" content="Chang Xiaoduan" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-c:before { content: 'C'; }
+  pre.src-C:before { content: 'C'; }
+  pre.src-C\+\+:before { content: 'C++'; }
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'JavaScript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Modding a Fallout: New Vegas Mod</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org9125b35">1. Locate the culprit</a></li>
+<li><a href="#orge31c22a">2. Deciphering the assemblies, Part 1</a></li>
+<li><a href="#org09b978d">3. Looking for help, Part 1</a></li>
+<li><a href="#org4612001">4. Trial-and-error</a></li>
+<li><a href="#orgde30110">5. Looking for help, Part 2</a></li>
+<li><a href="#org8285a6b">6. Deciphering the assemblies, Part 2</a></li>
+</ul>
+</div>
+</div>
+<p>
+I played Fallout: New Vegas (FNV) twice before, but when I was young
+and simple, and I never thoroughly experience all the
+content. Recently, I finished the Fallout TV series season 2, my
+interest for the game was reignited by the slow motion scene where a
+bullet flying out from a rifle fired by an NCR ranger, which most
+successfully replicates the scene presented in the opening movie of
+the original game. In fact, after season 1, I said I would like to
+play the game again, but I did not. This time, I do not know how, I
+really started playing FNV and played a lot.
+</p>
+
+<p>
+This time I decide to experience the game thoroughly: do every quest,
+visit every place of interest, collect every notable weapon and
+armor&hellip; So I followed a walk-through guide which helps me navigate
+through the world, in an easy and reasonable pace, making sure that I
+do not miss anything interesting.
+</p>
+
+<p>
+Other than that, I used a renowned mod list: Viva New Vegas. If you
+are not familiar with what a mod is, it is some program which can be
+loaded by the original game but is not officially developed by
+employees of the developing studio. Those programs <i>modify</i> the
+behavior of the original game, thus the name mods. Mods can cover a
+lot of things: fixing bugs, improving performance, adding new
+content. Generally speaking, they allow people who are interested to
+expand the game to some extent that they are also developing the game
+as well. I played Skyrim, Fallout 4, Cyberpunk 2077 and Baldur's Gate
+3 before, which also support community mods. I am familiar with mods
+and enjoy the improvement and new content provided by them, but I have
+never modified any game before.
+</p>
+
+<p>
+Back to Viva New Vegas. It is a collection of mods focusing on fixing
+bugs, visual improvements, extending some gameplay elements while
+mostly keeping the style of the original game. Usually, I do not care
+about visual elements, but I really need those bug fixes, either
+gameplay or performance ones, since Bethesda's games are infamous for
+blocking bugs and frequent crashes.
+</p>
+
+<p>
+It turns out that I do not want all the bug fixes. I am playing a
+character with the Logan's Loophole and the Chemist perk. In the
+vanilla game, although the description of these perks says that they
+only increase the effect duration of Chemicals, they actually affect
+all consumables including food, drink, and even magazines. Though
+strictly speaking, this is a bug, but it is not a bad thing to make
+your character more powerful. However, it seems that at least one of
+the mods I installed fixes this problem and those perks now really
+only works for Chemicals in my game.
+</p>
+
+<p>
+Using these mods reminds me of using Emacs packages. Emacs packages
+are open sourced, so if I want to change certain behavior of certain
+packages, I just edit its source code and evaluate the updated
+code. In this case, FNV is the equivalent for Emacs, and mods are the
+equivalent for packages. However, are mods open sourced so that I can
+edit them to tweak their behaviors?  Well, at least some of them are.
+</p>
+<div id="outline-container-org9125b35" class="outline-2">
+<h2 id="org9125b35"><span class="section-number-2">1.</span> Locate the culprit</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Anyway, the first step is to locate which mod fixes this bug. Browsing
+the modlist, I located <a href="https://www.nexusmods.com/newvegas/mods/51664">Yukichigai Unofficial Patch</a> (YUP) first, since
+it is a collection of bug fixes. In its change logs I found the
+following:
+</p>
+
+<blockquote>
+<p>
+v12.5
+</p>
+<ul class="org-ul">
+<li>Removed Chemist/Day Tripper duration fix as it is now better
+handled by an engine-level fix in JIP LN.</li>
+</ul>
+</blockquote>
+
+<p>
+It seems that YUP did fix this problem, but now it removes the fix and
+let engine level fixes deal with it. Fine. Next stop, <a href="https://www.nexusmods.com/newvegas/mods/58277">JIP LN</a>. Well,
+this mod is not updated for nearly two years. Not a good signal for
+any software. A software not maintained is a software dead. Reading
+its change log, I was happy to find something related:
+</p>
+
+<blockquote>
+<ul class="org-ul">
+<li>Version 56.90
+<ul class="org-ul">
+<li>(From v56.76) Code-level fix for the 'Modify Positive Chem
+Duration' perk entry point to only effect 'Chems' (instead of all
+ingestibles) as was intended &mdash; improved this fix such that the
+correct duration is shown in the item effects info.</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<p>
+Also:
+</p>
+
+<blockquote>
+<ul class="org-ul">
+<li>Version 56.76
+<ul class="org-ul">
+<li>Code-level fix for the 'Modify Positive Chem Duration' perk entry
+point to only effect 'Chems' (instead of all ingestibles) as was
+intended and as it did in Fallout 3.</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<p>
+Cool. This is exactly what I need. Fortunately, JIP LN is open
+sourced. So I download the code. By its change log, I located two
+functions. The first, <code>EffectItemGetModifiedDuration</code>, fixes the
+displayed duration, introduced in Version 56.90.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code><span class="linenr"> 1: </span><span style="color: #531ab6;">__declspec</span>(naked) UInt32 <span style="color: #005f5f;">__fastcall</span> <span style="color: #721045;">EffectItemGetModifiedDuration</span>(<span style="color: #005f5f;">EffectItem</span> *<span style="color: #005e8b;">effItem</span>)
+<span class="linenr"> 2: </span>{
+<span class="linenr"> 3: </span>        __asm
+<span class="linenr"> 4: </span>        {
+<span class="linenr"> 5: </span>                <span style="color: #531ab6;">xor</span>             eax, eax
+<span class="linenr"> 6: </span>                <span style="color: #005f5f;">mov</span>             <span style="color: #005e8b;">edx</span>, [<span style="color: #0000b0;">ecx</span>+0x14]
+<span class="linenr"> 7: </span>                test    byte ptr [edx+0x58], 0x80
+<span class="linenr"> 8: </span>                jnz             done
+<span class="linenr"> 9: </span>                mov             eax, [<span style="color: #0000b0;">ecx</span>+8]
+<span class="linenr">10: </span>                test    byte ptr [edx+0x58], 1
+<span class="linenr">11: </span>                jnz             done
+<span class="linenr">12: </span>                mov             ecx, [<span style="color: #0000b0;">ebp</span>]
+<span class="linenr">13: </span>                mov             ecx, [<span style="color: #0000b0;">ecx</span>-0xD4]
+<span class="linenr">14: </span>                cmp             dword ptr [ecx], 0x1011900
+<span class="linenr">15: </span>                jnz             done
+<span class="linenr">16: </span>                mov             dl, [<span style="color: #0000b0;">ecx</span>+0x64]
+<span class="linenr">17: </span>                sub             dl, 0xA
+<span class="linenr">18: </span>                cmp             dl, 1
+<span class="linenr">19: </span>                ja              done
+<span class="linenr">20: </span>                cvtsi2ss        xmm0, eax
+<span class="linenr">21: </span>                push    <span style="color: #005f5f;">ecx</span>
+<span class="linenr">22: </span>                <span style="color: #005e8b;">movss</span>   [esp], xmm0
+<span class="linenr">23: </span>                push    esp
+<span class="linenr">24: </span>                push    g_thePlayer
+<span class="linenr">25: </span>                push    <span style="color: #005f5f;">kPerkEntry_ModifyPositiveChemDuration</span>
+<span class="linenr">26: </span>                <span style="color: #005e8b;">CALL_EAX</span>(0x5E58F0)
+<span class="linenr">27: </span>                <span style="color: #005f5f;">add</span>             <span style="color: #005e8b;">esp</span>, 0xC
+<span class="linenr">28: </span>                cvttss2si       eax, [<span style="color: #0000b0;">esp</span>]
+<span class="linenr">29: </span>                pop             ecx
+<span class="linenr">30: </span>        done:
+<span class="linenr">31: </span>                retn
+<span class="linenr">32: </span>        }
+<span class="linenr">33: </span>}
+</code></pre>
+</div>
+
+<p>
+And the second, <code>ModPositiveChemDurationHook</code>, fixes the actual
+effecting duration for ingestibles, introduced in Version 56.76.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code><span style="color: #531ab6;">__declspec</span>(naked) <span style="color: #005f5f;">void</span> <span style="color: #721045;">ModPositiveChemDurationHook</span>()
+{
+        __asm
+        {
+                mov             al, [<span style="color: #0000b0;">eax</span>+0xA0]
+                sub             al, 0xA
+                cmp             al, 1
+                seta    al
+                ja              done
+                mov             ecx, [<span style="color: #0000b0;">ebp</span>+0x10]
+                mov             eax, [<span style="color: #0000b0;">ecx</span>+0xC]
+                mov             ecx, [<span style="color: #0000b0;">eax</span>+0x14]
+                mov             al, [<span style="color: #0000b0;">ecx</span>+0x58]
+                <span style="color: #531ab6;">and</span>             al, 1
+        done:
+                JMP_EDX(0x82370C)
+        }
+}
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge31c22a" class="outline-2">
+<h2 id="orge31c22a"><span class="section-number-2">2.</span> Deciphering the assemblies, Part 1</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Being unfamiliar to mods development, I was really curious why these
+functions are implemented in assembly, which is more difficult to read
+and understand than C++, isn't it?
+</p>
+
+<p>
+Although I was quite confident that these two functions were what I
+was looking for, I would feel more comfortable to move along if I
+could understand what they do so that I could be 100% sure that they
+were the fixes I wanted to revert.
+</p>
+
+<p>
+I started with <code>EffectItemGetModifiedDuration</code> since at least it had
+an argument which had a C++ definition, which may help me understand
+the code. Then function is marked with <code>__fastcall</code> and since FNV is a
+32-bit program, it should follow IA-32 calling convention. From the
+<a href="https://en.wikipedia.org/wiki/X86_calling_conventions#List_of_x86_calling_conventions">Wiki</a>, we can see that <code>fastcall</code> functions implemented by Microsoft
+C++ compilers pass its first argument through the <code>ECX</code>
+register. Thus, line 6-8 of the assemblies is testing the member at
+offset <code>0x14</code> of <code>EffectItem</code>, which by definition is a pointer to
+<code>EffectSetting</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code><span style="color: #531ab6;">class</span> <span style="color: #005f5f;">EffectItem</span>
+{
+<span style="color: #531ab6;">public</span>:
+        <span style="color: #531ab6;">enum</span>
+        {
+                <span style="color: #005e8b;">kRange_Self</span> = 0,
+                <span style="color: #005e8b;">kRange_Touch</span>,
+                <span style="color: #005e8b;">kRange_Target</span>,
+        };
+
+        <span style="color: #005f5f;">UInt32</span>                          <span style="color: #005e8b;">magnitude</span>;                      <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">00   used as a float
+</span>        <span style="color: #005f5f;">UInt32</span>                          <span style="color: #005e8b;">area</span>;                           <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">04
+</span>        <span style="color: #005f5f;">UInt32</span>                          <span style="color: #005e8b;">duration</span>;                       <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">08
+</span>        <span style="color: #005f5f;">UInt32</span>                          <span style="color: #005e8b;">range</span>;                          <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">0C
+</span>        <span style="color: #005f5f;">UInt32</span>                          <span style="color: #005e8b;">actorValueOrOther</span>;      <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">10
+</span>        <span style="color: #005f5f;">EffectSetting</span>           *<span style="color: #005e8b;">setting</span>;                       <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">14
+</span>        <span style="color: #005f5f;">float</span>                           <span style="color: #005e8b;">cost</span>;                           <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">18 on autocalc items this seems to be the cost
+</span>        <span style="color: #005f5f;">ConditionList</span>           <span style="color: #005e8b;">conditions</span>;                     <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">1C
+</span>};
+</code></pre>
+</div>
+
+<p>
+Then it tests the member of <code>EffectSetting</code> at offset <code>0x58</code> with
+<code>0x80</code>, which is a flag set, by the definition of <code>EffectSetting</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code><span style="color: #531ab6;">class</span> <span style="color: #005f5f;">EffectSetting</span> : <span style="color: #531ab6;">public</span> <span style="color: #005f5f;">TESForm</span>
+{
+<span style="color: #531ab6;">public</span>:
+        <span style="color: #005f5f;">TESModel</span>                <span style="color: #005e8b;">model</span>;                          <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">18
+</span>        <span style="color: #005f5f;">TESDescription</span>  <span style="color: #005e8b;">description</span>;            <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">30
+</span>        <span style="color: #005f5f;">TESFullName</span>             <span style="color: #005e8b;">fullName</span>;                       <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">38
+</span>        <span style="color: #005f5f;">TESIcon</span>                 <span style="color: #005e8b;">icon</span>;                           <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">44
+</span>        <span style="color: #005f5f;">UInt32</span>                  <span style="color: #005e8b;">unk50</span>;                          <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">50
+</span>        <span style="color: #005f5f;">UInt32</span>                  <span style="color: #005e8b;">unk54</span>;                          <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">54
+</span>        <span style="color: #005f5f;">UInt32</span>                  <span style="color: #005e8b;">effectFlags</span>;            <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">58
+</span>  <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">...
+</span>};
+</code></pre>
+</div>
+
+<p>
+Then, by the definition of <code>EffectSettingFlags</code>, we know that <code>0x80</code>
+is set if the effect has no duration:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code><span style="color: #531ab6;">enum</span> <span style="color: #005f5f;">EffectSettingFlags</span>
+{
+        <span style="color: #005e8b;">kEffFlag_Hostile</span> =                      1,
+        <span style="color: #005e8b;">kEffFlag_Recover</span> =                      2,
+        <span style="color: #005e8b;">kEffFlag_Detrimental</span> =          4,
+        <span style="color: #005e8b;">kEffFlag_Hidden</span> =                       8,
+        <span style="color: #005e8b;">kEffFlag_Self</span> =                         0x10,
+        <span style="color: #005e8b;">kEffFlag_Touch</span> =                        0x20,
+        <span style="color: #005e8b;">kEffFlag_Target</span> =                       0x40,
+        <span style="color: #005e8b;">kEffFlag_NoDuration</span> =           0x80,
+        <span style="color: #005e8b;">kEffFlag_NoMagnitude</span> =          0x100,
+        <span style="color: #005e8b;">kEffFlag_NoArea</span> =                       0x200,
+        <span style="color: #005e8b;">kEffFlag_FXPersist</span> =            0x400,
+        <span style="color: #005e8b;">kEffFlag_GoryVisuals</span> =          0x1000,
+        <span style="color: #005e8b;">kEffFlag_DisplayNameOnly</span> =      0x2000,
+        <span style="color: #005e8b;">kEffFlag_UseSkill</span> =                     0x80000,
+        <span style="color: #005e8b;">kEffFlag_UseAttribute</span> =         0x100000,
+        <span style="color: #005e8b;">kEffFlag_Painless</span> =                     0x1000000,
+        <span style="color: #005e8b;">kEffFlag_NoHitEffect</span> =          0x8000000,
+        <span style="color: #005e8b;">kEffFlag_NoDeathDispel</span> =        0x10000000
+};
+</code></pre>
+</div>
+
+<p>
+To summarize, line 6-8 is testing if the effect has no duration. If
+not, then the function simply returns and do nothing. Similarly, line
+10 to 11 tests if the effect is hostile, and if so, the function simply
+returns and do nothing as well.
+</p>
+
+<p>
+The following part was mystic for me. Why it is reading <code>ebp</code>? What is
+there? Since the function is marked with <code>__declspec(naked)</code> the
+compiler would not generate function prologue and epilogue for it,
+which means <code>ebp</code> is holding the stack base of some other function
+calling this function. It may point to the first argument of that
+function, but I have no idea what it is. The constants used in the
+following part are also enigmatic to me: <code>0xD4</code> and <code>0x1011900</code> meant
+nothing to me.
+</p>
+
+<p>
+I basically could get nothing out from <code>ModPositiveChemDurationHook</code>
+as well. It has no parameter, also marked with <code>__declspec(namekd)</code>,
+which means it is used in some context that I have no idea
+about. Guess I could use some help here.
+</p>
+</div>
+</div>
+<div id="outline-container-org09b978d" class="outline-2">
+<h2 id="org09b978d"><span class="section-number-2">3.</span> Looking for help, Part 1</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Obviously, it would be the best if the author of the mod can explain
+to me how this piece of code worked. However, the mod has not been
+updated for almost two years. I did not expect to contact the author,
+but I still tried. Messaging on Nexus received no respond. Joining
+Discord severs revealed that the author had not been reached by anyone
+for a long time, and his modding method was different from most of the
+other mod authors, so I could get little help there as well.
+</p>
+</div>
+</div>
+<div id="outline-container-org4612001" class="outline-2">
+<h2 id="org4612001"><span class="section-number-2">4.</span> Trial-and-error</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Fine. No way to be 100% sure about the effect of those functions. I
+could appreciate some trial-and-error: just did whatever modification I
+want and saw if it solved my problem. Even if it did not, there would
+be no harm. It's not rocket science after all.
+</p>
+
+<p>
+I commented out two lines of code that installed these two functions:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code>WriteRelCall(0x7E0C1F, (<span style="color: #005f5f;">UInt32</span>)EffectItemGetModifiedDuration);
+WriteRelJump(0x8236FD, (<span style="color: #005f5f;">UInt32</span>)ModPositiveChemDurationHook);
+</code></pre>
+</div>
+
+<p>
+Then I compiled the project, which produced a <code>.dll</code> file, and
+replaced it with the original one. Launching the game, fingers
+crossed. Then&hellip;
+</p>
+
+<p>
+Error! A dialog popped up: Johnny Guitar (JG) complained about that
+the JIP LN version was incompatible, and its fixes would be
+disabled. Well, I was not expecting things would work out so easily.
+</p>
+
+<p>
+It turns out that JG is another mod that depends on JIP
+LN. Fortunately, again, JG is open sourced as well so I may be able to
+modify its source code to accommodate my changes for JIP LN. Or, I
+could simply bypass its check for JIP LN since I considered my
+modification should not cause any harm.
+</p>
+
+<p>
+JG checks the size and hash of the JIP LN <code>.dll</code> file. I commented out
+all the checking code, modified the constant size, compiled and
+replaced JG <code>.dll</code> file. Launching the game and fingers crossed,
+again&hellip; This time, there was even no error. The game just instantly
+crashed. Guess the checks were there for a reason.
+</p>
+
+<p>
+Now, since JG strongly depends on the specific file, it would be
+really difficult to modify its source code to accommodate my
+changes. I did not check the source code thoroughly, but I did not
+want to recalculate some offsets and hard-coded addresses. Maybe I
+could use some help, again.
+</p>
+</div>
+</div>
+<div id="outline-container-orgde30110" class="outline-2">
+<h2 id="orgde30110"><span class="section-number-2">5.</span> Looking for help, Part 2</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+JG is, fortunately, actively maintained, and from its git log, I could
+see someone just updated the mod days before. I messaged one of the
+maintainers, <a href="https://www.nexusmods.com/profile/WallSoGB">WallSoGB</a>, on Nexus and got his reply really quick. From
+his explanation, I figured out something about mods development. The
+answer to the question I asked before was actually obvious: these mod
+authors use assembly code not because they prefer it, but that is the
+only way to insert some code into the original game code. After all,
+the game itself is not open sourced.
+</p>
+
+<p>
+Next, although JIP LN is open sourced and JG depends on it, but JG
+actually depends on the binary <code>.dll</code> files, rather than the source
+code. The interface between these two mods are the binary files rather
+than the source code, though reading the source code did help. As a
+result, my original plan: modifying JIP LN, compiling a new <code>.dll</code>
+file and replacing the old one would never work out. However, WallSoGB
+did provide another solution: I could modify JG so that it in turn
+modifies JIP LN at runtime. Since no other mods strongly depends on JG
+(at least not verifying its size and hash), this should work. What I
+need to do is to add the following statement to <code>InitEarlyHooks</code> in
+JG:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code>PatchMemoryNopRange(GetJIPAddress(0x100128C3), GetJIPAddress(0x100128E1));
+</code></pre>
+</div>
+
+<p>
+This overwrites JIP LN memory from <code>0x100128C3</code> to <code>0x100128E1</code> so
+that this piece of memory contains only instruction <code>NOP</code>, an
+instruction that actually did nothing. Why between these two
+addresses? It turns out that this piece of memory holds the
+instructions that install the two fixes:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code>WriteRelCall(0x7E0C1F, (<span style="color: #005f5f;">UInt32</span>)EffectItemGetModifiedDuration);
+WriteRelJump(0x8236FD, (<span style="color: #005f5f;">UInt32</span>)ModPositiveChemDurationHook);
+</code></pre>
+</div>
+
+<p>
+This can be verified with a disassemble tool (Ghidra, in this case):
+</p>
+
+<pre class="example" id="orgef8ba79">
+                     patches_game.h:5401 (15)
+100128c3 68 10 e7        PUSH       EffectItemGetModifiedDuration
+         00 10
+100128c8 68 1f 0c        PUSH       0x7e0c1f
+         7e 00
+100128cd e8 5e 41        CALL       WriteRelCall                                     void WriteRelCall(ulong param_1,
+         ff ff
+                     patches_game.h:5402 (15)
+100128d2 68 70 e7        PUSH       ModPositiveChemDurationHook
+         00 10
+100128d7 68 fd 36        PUSH       0x8236fd
+         82 00
+100128dc e8 ff 40        CALL       WriteRelJump                                     void WriteRelJump(ulong param_1,
+         ff ff
+</pre>
+
+<p>
+This effectively "comments out" the two statement that installs the
+two fix functions at runtime. This is why I say these mods interface
+through binaries rather than source code.
+</p>
+
+<p>
+Restoring the <code>.dll</code> file of JIP LN, compiling JG and replacing the
+<code>.dll</code> file, launching the game&hellip; This time, no error, no
+crashes. Open my Pip-Boy and check some food, whose effect duration
+was not extended before&hellip; Voila! Now its effect duration is correctly
+(incorrectly?) extended by perks Chemist and Logan's Loophole, just as
+the vanilla game!
+</p>
+</div>
+</div>
+<div id="outline-container-org8285a6b" class="outline-2">
+<h2 id="org8285a6b"><span class="section-number-2">6.</span> Deciphering the assemblies, Part 2</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Although I successfully reverted the fix, I still was curious about
+the actual meaning of these two functions. Since I could not find
+someone who could help me, why not gave LLM a try?
+</p>
+
+<p>
+I started a session backed by DeepSeek V3.2 API. First I asked it to
+explain to me the JIP LN project. Then I asked it what does the
+function <code>ModPositiveChemDurationHook</code> do? It summarized as follows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-markdown"><code><span style="color: #595959;">**</span><span style="color: #595959; font-weight: bold;">`</span><span style="color: #005f5f; font-weight: bold;">ModPositiveChemDurationHook</span><span style="color: #595959; font-weight: bold;">`</span><span style="color: #595959;">**</span> is an inline assembly hook intended to modify the game&#8217;s logic for determining whether a chem (drug) effect is &#8220;positive&#8221; and should have its duration adjusted by perks such as <span style="color: #595959;">**</span><span style="font-weight: bold;">Chemist</span><span style="color: #595959;">**</span> (which normally doubles the duration of beneficial chems).  
+</code></pre>
+</div>
+
+<p>
+Looks quite good, but its explanation for the assembly code did not
+help too much:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-markdown"><code><span style="color: #595959;">## </span><span style="color: #624416; font-size: 123%; font-weight: bold;">?? What the hook does (assembly analysis)</span>
+
+The hook&#8217;s assembly code performs the following checks:
+
+<span style="color: #595959; background-color: #f2f2f2;">```</span><span style="color: #595959; background-color: #f2f2f2;">assembly</span><span style="background-color: #f2f2f2;">
+</span><span style="background-color: #f2f2f2;">mov  al, [eax+0xA0]      ; load a byte from offset 0xA0 of the object pointed by eax
+sub  al, 0xA             ; subtract 10 (0xA)
+cmp  al, 1               ; compare the result to 1
+seta al                  ; set al = 1 if (byte&#8209;10) &gt; 1
+ja   done                ; jump to &#8220;done&#8221; if (byte&#8209;10) &gt; 1
+
+; If we get here, the byte is 0xA or 0xB (i.e., a &#8220;positive chem&#8221; type?)
+mov  ecx, [ebp+0x10]     ; follow a chain of pointers
+mov  eax, [ecx+0xC]
+mov  ecx, [eax+0x14]
+mov  al, [ecx+0x58]      ; read a flag byte at offset 0x58
+and  al, 1               ; isolate bit 0 (likely a &#8220;positive effect&#8221; flag)
+
+done:
+JMP_EDX(0x82370C)        ; jump back to the original game code
+</span><span style="color: #595959; background-color: #f2f2f2;">```</span><span style="background-color: #f2f2f2;">
+</span>
+<span style="color: #595959;">### </span><span style="color: #193668; font-size: 114%; font-weight: bold;">Interpretation:</span>
+<span style="color: #595959;">1.</span> <span style="color: #595959;">**</span><span style="font-weight: bold;">Byte at </span><span style="color: #595959; font-weight: bold;">`</span><span style="color: #005f5f; font-weight: bold;">[eax+0xA0]</span><span style="color: #595959; font-weight: bold;">`</span><span style="color: #595959;">**</span> likely identifies the <span style="color: #595959;">**</span><span style="font-weight: bold;">chem type</span><span style="color: #595959;">**</span>.<span style="color: #a60000; text-decoration: underline;">  </span>
+   <span style="color: #595959;">-</span> If the byte is <span style="color: #595959;">`</span><span style="color: #005f5f;">0xA</span><span style="color: #595959;">`</span> or <span style="color: #595959;">`</span><span style="color: #005f5f;">0xB</span><span style="color: #595959;">`</span> (10 or 11), the hook proceeds; otherwise it jumps to the end.
+   <span style="color: #595959;">-</span> These values probably correspond to <span style="color: #595959;">**</span><span style="font-weight: bold;">positive chems</span><span style="color: #595959;">**</span> like Med&#8209;X, Buffout, etc.
+<span style="color: #595959;">2.</span> The second part dereferences a pointer chain to reach an <span style="color: #595959;">**</span><span style="font-weight: bold;">effect&#8209;item structure</span><span style="color: #595959;">**</span> and reads <span style="color: #595959;">**</span><span style="font-weight: bold;">flag bit 0</span><span style="color: #595959;">**</span> at offset <span style="color: #595959;">`</span><span style="color: #005f5f;">0x58</span><span style="color: #595959;">`</span>.<span style="color: #a60000; text-decoration: underline;">  </span>
+   <span style="color: #595959;">-</span> This bit likely indicates whether the effect is <span style="color: #595959;">**</span><span style="font-weight: bold;">beneficial</span><span style="color: #595959;">**</span> (positive).
+<span style="color: #595959;">3.</span> The final value in <span style="color: #595959;">`</span><span style="color: #005f5f;">al</span><span style="color: #595959;">`</span> is either <span style="color: #595959;">`</span><span style="color: #005f5f;">0</span><span style="color: #595959;">`</span> or <span style="color: #595959;">`</span><span style="color: #005f5f;">1</span><span style="color: #595959;">`</span>, which the original game code uses to decide whether to apply perk&#8209;based duration modifiers.
+</code></pre>
+</div>
+
+<p>
+So I asked it to provide a more detailed explanation to the function,
+and it generates the following response:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-markdown"><code><span style="color: #595959;">## </span><span style="color: #624416; font-size: 123%; font-weight: bold;">?? Step&#8209;by&#8209;step analysis of the assembly</span>
+
+<span style="color: #595959; background-color: #f2f2f2;">```</span><span style="color: #595959; background-color: #f2f2f2;">assembly</span><span style="background-color: #f2f2f2;">
+</span><span style="background-color: #f2f2f2;">mov   al, [eax+0xA0]      ; 1. load a byte from offset 0xA0 of the object pointed to by EAX
+sub   al, 0xA             ; 2. subtract 10 (0xA) from that byte
+cmp   al, 1               ; 3. compare the result with 1
+seta  al                  ; 4. set AL = 1 if (byte&#8209;0xA) &gt; 1, else AL = 0
+ja    done                ; 5. if (byte&#8209;0xA) &gt; 1, jump to &#8220;done&#8221; (with AL = 1)
+
+; --- Only reach here if the original byte was 0xA or 0xB (10 or 11) ---
+mov   ecx, [ebp+0x10]     ; 6. load a pointer from the stack (likely a function argument)
+mov   eax, [ecx+0xC]      ; 7. follow offset +0xC to obtain an EffectItem pointer
+mov   ecx, [eax+0x14]     ; 8. follow offset +0x14 to obtain the EffectSetting pointer
+mov   al, [ecx+0x58]      ; 9. read the effectFlags field (32&#8209;bit, but we take only the low byte)
+and   al, 1               ;10. isolate bit&#8239;0 (the &#8220;Hostile&#8221; flag)
+
+done:
+JMP_EDX(0x82370C)         ; jump back to the original game code
+</span><span style="color: #595959; background-color: #f2f2f2;">```</span><span style="background-color: #f2f2f2;">
+</span>
+<span style="color: #595959;">---</span>
+
+<span style="color: #595959;">## </span><span style="color: #624416; font-size: 123%; font-weight: bold;">?? What each part is testing</span>
+
+<span style="color: #595959;">### </span><span style="color: #595959; font-size: 114%; font-weight: bold;">**</span><span style="color: #193668; font-size: 114%; font-weight: bold;">Part&#8239;1 &#8211; The &#8220;chem&#8209;type&#8221; filter</span><span style="color: #595959; font-size: 114%; font-weight: bold;">**</span>
+<span style="color: #595959;">-</span> <span style="color: #595959;">**</span><span style="color: #595959; font-weight: bold;">`</span><span style="color: #005f5f; font-weight: bold;">[eax+0xA0]</span><span style="color: #595959; font-weight: bold;">`</span><span style="color: #595959;">**</span> reads a byte from an object (likely an <span style="color: #595959;">**</span><span style="font-weight: bold;">AlchemyItem</span><span style="color: #595959;">**</span> or a related structure).<span style="color: #a60000; text-decoration: underline;">  </span>
+<span style="color: #595959;">-</span> The byte is compared with <span style="color: #595959;">**</span><span style="font-weight: bold;">0xA</span><span style="color: #595959;">**</span> and <span style="color: #595959;">**</span><span style="font-weight: bold;">0xB</span><span style="color: #595959;">**</span> (decimal 10 and 11).<span style="color: #a60000; text-decoration: underline;">  </span>
+<span style="color: #595959;">-</span> <span style="color: #595959;">**</span><span style="font-weight: bold;">Only if the byte equals 0xA or 0xB</span><span style="color: #595959;">**</span> does the hook proceed to Part&#8239;2.<span style="color: #a60000; text-decoration: underline;">  </span>
+<span style="color: #595959;">-</span> For any other value, <span style="color: #595959;">`</span><span style="color: #005f5f;">AL</span><span style="color: #595959;">`</span> is set to <span style="color: #595959;">**</span><span style="font-weight: bold;">1</span><span style="color: #595959;">**</span> and the hook jumps to the end.
+
+<span style="color: #595959;">**</span><span style="font-weight: bold;">Interpretation:</span><span style="color: #595959;">**</span> The game apparently uses this byte to classify chems. Values&#8239;10&#8239;and&#8239;11 probably correspond to <span style="color: #595959;">**</span><span style="font-weight: bold;">addiction&#8209;related chems</span><span style="color: #595959;">**</span> (note that <span style="color: #595959;">`</span><span style="color: #005f5f;">MagicItem::kAddiction = 10</span><span style="color: #595959;">`</span> in the SDK). The hook restricts the perk&#8209;duration adjustment to <span style="color: #595959;">*</span><span style="font-style: italic;">only</span><span style="color: #595959;">*</span> these two chem types.
+
+<span style="color: #595959;">### </span><span style="color: #595959; font-size: 114%; font-weight: bold;">**</span><span style="color: #193668; font-size: 114%; font-weight: bold;">Part&#8239;2 &#8211; The &#8220;hostile&#8209;effect&#8221; check</span><span style="color: #595959; font-size: 114%; font-weight: bold;">**</span>
+<span style="color: #595959;">-</span> The hook traverses a pointer chain to reach the <span style="color: #595959;">**</span><span style="font-weight: bold;">EffectSetting</span><span style="color: #595959;">**</span> associated with the chem&#8217;s effect.<span style="color: #a60000; text-decoration: underline;">  </span>
+<span style="color: #595959;">-</span> At offset <span style="color: #595959;">**</span><span style="font-weight: bold;">0x58</span><span style="color: #595959;">**</span> of the EffectSetting is the <span style="color: #595959;">`</span><span style="color: #005f5f;">effectFlags</span><span style="color: #595959;">`</span> field (see <span style="color: #595959;">`</span><span style="color: #005f5f;">EffectSetting::effectFlags</span><span style="color: #595959;">`</span> in <span style="color: #595959;">`</span><span style="color: #005f5f;">GameForms.h</span><span style="color: #595959;">`</span>).<span style="color: #a60000; text-decoration: underline;">  </span>
+<span style="color: #595959;">-</span> <span style="color: #595959;">**</span><span style="font-weight: bold;">Bit&#8239;0</span><span style="color: #595959;">**</span> of <span style="color: #595959;">`</span><span style="color: #005f5f;">effectFlags</span><span style="color: #595959;">`</span> is <span style="color: #595959;">`</span><span style="color: #005f5f;">kEffFlag_Hostile</span><span style="color: #595959;">`</span> (value&#8239;1).<span style="color: #a60000; text-decoration: underline;">  </span>
+<span style="color: #595959;">-</span> The hook reads that bit and returns <span style="color: #595959;">`</span><span style="color: #005f5f;">AL = 1</span><span style="color: #595959;">`</span> if the effect is hostile, <span style="color: #595959;">`</span><span style="color: #005f5f;">AL = 0</span><span style="color: #595959;">`</span> if it is non&#8209;hostile.
+
+<span style="color: #595959;">**</span><span style="font-weight: bold;">Interpretation:</span><span style="color: #595959;">**</span> Even for chem types&#8239;10&#8239;and&#8239;11, the perk should <span style="color: #595959;">**</span><span style="font-weight: bold;">not</span><span style="color: #595959;">**</span> extend the duration of hostile (detrimental) effects. This check ensures that only <span style="color: #595959;">*</span><span style="font-style: italic;">non&#8209;hostile</span><span style="color: #595959;">*</span> effects of those chem types receive the duration bonus.
+</code></pre>
+</div>
+
+<p>
+This time the result was much better. In fact, it was mostly correct
+about the second part. Although its reasoning about the first part was
+not fully correct, it brought an important class, <code>AlchemyItem</code>, into
+my sight. Reading the definition of this class, I somehow figured out
+an explanation myself:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code><span style="color: #531ab6;">class</span> <span style="color: #005f5f;">AlchemyItem</span> : <span style="color: #531ab6;">public</span> <span style="color: #005f5f;">MagicItemObject</span>
+{
+<span style="color: #531ab6;">public</span>:
+        <span style="color: #005f5f;">TESModelTextureSwap</span>                     <span style="color: #005e8b;">model</span>;                                  <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">4C
+</span>        <span style="color: #005f5f;">TESIcon</span>                                         <span style="color: #005e8b;">icon</span>;                                   <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">6C
+</span>        <span style="color: #005f5f;">BGSMessageIcon</span>                          <span style="color: #005e8b;">messageIcon</span>;                    <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">78
+</span>        <span style="color: #005f5f;">TESScriptableForm</span>                       <span style="color: #005e8b;">scriptable</span>;                             <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">88
+</span>        <span style="color: #005f5f;">TESWeightForm</span>                           <span style="color: #005e8b;">weight</span>;                                 <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">94
+</span>        <span style="color: #005f5f;">BGSEquipType</span>                            <span style="color: #005e8b;">equipType</span>;                              <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">9C
+</span>        <span style="color: #005f5f;">BGSDestructibleObjectForm</span>       <span style="color: #005e8b;">destructible</span>;                   <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">A4
+</span>        <span style="color: #005f5f;">BGSPickupPutdownSounds</span>          <span style="color: #005e8b;">pickupPutdownsounds</span>;    <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">AC
+</span>
+        <span style="color: #005f5f;">UInt32</span>                                          <span style="color: #005e8b;">value</span>;                                  <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">B8
+</span>        <span style="color: #005f5f;">UInt8</span>                                           <span style="color: #005e8b;">alchFlags</span>;                              <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">BC
+</span>        <span style="color: #005f5f;">UInt8</span>                                           <span style="color: #005e8b;">padBD</span>[3];                               <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">BD
+</span>        <span style="color: #005f5f;">SpellItem</span>                                       *<span style="color: #005e8b;">withdrawalEffect</span>;              <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">C0
+</span>        <span style="color: #005f5f;">float</span>                                           <span style="color: #005e8b;">addictionChance</span>;                <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">C4
+</span>        <span style="color: #005f5f;">TESSound</span>                                        *<span style="color: #005e8b;">consumeSound</span>;                  <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">C8
+</span>        <span style="color: #005f5f;">TESIcon</span>                                         <span style="color: #005e8b;">iconCC</span>;                                 <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">CC
+</span>
+        <span style="color: #005f5f;">bool</span> <span style="color: #721045;">IsPoison</span>() <span style="color: #531ab6;">const</span>;
+};
+</code></pre>
+</div>
+
+<p>
+For this piece of code:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-asm"><code><span style="color: #721045;">mov</span>             <span style="color: #531ab6;">al</span>, [eax+0xA0]
+<span style="color: #721045;">sub</span>             <span style="color: #531ab6;">al</span>, 0xA
+<span style="color: #721045;">cmp</span>             <span style="color: #531ab6;">al</span>, 1
+<span style="color: #721045;">seta</span>    <span style="color: #531ab6;">al</span>
+<span style="color: #721045;">ja</span>              <span style="color: #531ab6;">done</span>
+</code></pre>
+</div>
+
+<p>
+Assume <code>eax</code> holds a pointer to an instance of <code>AlchemyItem</code>, then
+offset <code>0xA0</code> actually points to the last 4 bytes of <code>equipType</code>. The
+definition of <code>BGSEquipType</code> shows that our assumption is largely
+correct:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C++"><code><span style="color: #531ab6;">class</span> <span style="color: #005f5f;">BGSEquipType</span> : <span style="color: #531ab6;">public</span> <span style="color: #005f5f;">BaseFormComponent</span>
+{
+<span style="color: #531ab6;">public</span>:
+        <span style="color: #531ab6;">enum</span> <span style="color: #005f5f;">EquipTypes</span>
+        {
+                <span style="color: #005e8b;">kEqpType_BigGuns</span>,
+                <span style="color: #005e8b;">kEqpType_EnergyWeapons</span>,
+                <span style="color: #005e8b;">kEqpType_SmallGuns</span>,
+                <span style="color: #005e8b;">kEqpType_MeleeWeapons</span>,
+                <span style="color: #005e8b;">kEqpType_UnarmedWeapons</span>,
+                <span style="color: #005e8b;">kEqpType_ThrowWeapons</span>,
+                <span style="color: #005e8b;">kEqpType_Mine</span>,
+                <span style="color: #005e8b;">kEqpType_BodyWear</span>,
+                <span style="color: #005e8b;">kEqpType_HeadWear</span>,
+                <span style="color: #005e8b;">kEqpType_HandWear</span>,
+                <span style="color: #005e8b;">kEqpType_Chems</span>,
+                <span style="color: #005e8b;">kEqpType_Stimpack</span>,
+                <span style="color: #005e8b;">kEqpType_Food</span>,
+                <span style="color: #005e8b;">kEqpType_Alcohol</span>
+        };
+
+        <span style="color: #005f5f;">UInt32</span>  <span style="color: #005e8b;">equipType</span>;      <span style="color: #595959; font-style: italic;">// </span><span style="color: #595959; font-style: italic;">08
+</span>};
+</code></pre>
+</div>
+
+<p>
+Its last four bytes store its type, and <code>0xA</code> is the type for
+Chemicals. If the type is larger than <code>0xB</code>, that is, if it is food or
+alcohol, then <code>al</code> is set, and the execution continues outside this
+function. This means if the <code>al</code> is set to 1 before execution
+continues outside, then duration should not be extended.
+</p>
+
+<p>
+The second part looks familiar:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-asm"><code><span style="color: #721045;">mov</span>             <span style="color: #531ab6;">ecx</span>, [ebp+0x10]
+<span style="color: #721045;">mov</span>             <span style="color: #531ab6;">eax</span>, [ecx+0xC]
+<span style="color: #721045;">mov</span>             <span style="color: #531ab6;">ecx</span>, [eax+0x14]
+<span style="color: #721045;">mov</span>             <span style="color: #531ab6;">al</span>, [ecx+0x58]
+<span style="color: #721045;">and</span>             <span style="color: #531ab6;">al</span>, 1
+</code></pre>
+</div>
+
+<p>
+The offsets <code>0x14</code> and <code>0x58</code> were seen in the function
+<code>EffectItemGetModifiedDuration</code>, and as the LLM suggested, it is
+checking for the effect flag and making sure if it is a hostile
+effect, its duration should not be extended.
+</p>
+
+<p>
+Where does the <code>0xC</code> comes from? Since the <code>0x14</code> is offsetting inside
+a <code>EffectItem</code>, I searched for it and found that <code>ActiveEffect</code> holds
+a reference to <code>EffectItem</code> at offset <code>0xC</code>. However, I can not find
+any reference to <code>ActiveEffect</code> located at offset <code>0x10</code>. Why the
+offset is taken from <code>ebp</code>? This question I can not answer as
+well. Obviously, there is lots of information that is known to the
+author of the mod but not me. I guess that must be some knowledge of
+reverse engineering the original game. However, this journey (and
+article) is already long enough. I decide to stop here. After all,
+reverse engineering is some topic I have almost zero knowledge about.
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
